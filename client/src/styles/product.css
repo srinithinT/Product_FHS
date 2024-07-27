@@ -1,0 +1,31 @@
+.product-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1em;
+  text-align: center;
+}
+.product-list {
+  list-style-type: none;
+  padding: 0;
+}
+.product-item {
+  border: 2px solid black;
+  border-radius: 4px;
+  padding: 1em;
+  text-align: left;
+  display: flex;
+  gap: 5em;
+  margin: 5px;
+}
+.form-input {
+  width: 100%;
+  padding: 0.5em;
+  margin: 0.5em 0;
+  background-color: white;
+  border-radius: 4px;
+  color: black;
+}
+.error {
+  color: red;
+  font-size: 0.7em;
+}

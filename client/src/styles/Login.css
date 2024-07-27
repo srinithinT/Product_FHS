@@ -1,0 +1,20 @@
+.signupContainer {
+  max-width: 400px;
+  text-align: center;
+  padding: 1em;
+  margin: 0 auto;
+}
+.form-input {
+  width: 100%;
+  padding: 0.5em;
+  margin: 0.5em 0;
+  background-color: white;
+  border-radius: 4px;
+  color: black;
+}
+.label-input {
+  text-align: left;
+  color: black;
+  font-size: larger;
+  font-weight: 600;
+}

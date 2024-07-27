@@ -1,0 +1,16 @@
+.navbar {
+  display: flex;
+  padding: 1em;
+  background: black;
+}
+.nav-link {
+  color: white;
+  padding: 0.5em;
+}
+.logout {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
