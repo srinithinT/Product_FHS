@@ -33,8 +33,9 @@ export const getProducts = async () => {
 export const addProducts = async (token, userData) => {
   const userResponse = await fetch(`${BaseUrl}/products`, {
     method: "POST",
-    headers: { Authorization: `Bearer ${token}` },
-    body: userData,
+    headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" },
+
+    body: JSON.stringify(userData),
   });
 
   console.log(userResponse, userData, token, "added product");
@@ -45,22 +46,29 @@ export const addProducts = async (token, userData) => {
 };
 
 export const addToCart = async (token, userData) => {
-  console.log(userData, "userdata", token);
-
-  const userResponse = await fetch(`${BaseUrl}/cart`, {
-    method: "POST",
-    headers: { Authorization: "Bearer " + token },
-    body: JSON.stringify(userData),
-  });
-
-  if (!userResponse.ok) {
-    throw new Error("adding the product to cart isfailed");
+  try {
+    const userResponse = await fetch(`${BaseUrl}/cart`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + token,
+      },
+      body: JSON.stringify(userData),
+    });
+    console.log(userData, "userdata from add to cart");
+    if (!userResponse.ok) {
+      throw new Error("Adding the product to cart failed");
+    }
+    return userResponse.json();
+  } catch (error) {
+    console.error("Error adding to cart:", error);
+    throw error;
   }
-  return userResponse.json();
 };
+
 export const getProfile = async (token) => {
   const userResponse = await fetch(`${BaseUrl}/profile`, {
-    headers: { Authorization: "Bearer " + token },
+    headers: { Authorization: "Bearer " + token, "Content-Type": "application/json" },
   });
   console.log(token, "toekn");
   if (!userResponse.ok) {
@@ -70,7 +78,7 @@ export const getProfile = async (token) => {
 };
 export const getCart = async (token) => {
   const userResponse = await fetch(`${BaseUrl}/cart`, {
-    headers: { Authorization: "Bearer " + token },
+    headers: { Authorization: "Bearer " + token, "Content-Type": "application/json" },
   });
   console.log(token, userResponse, "userResponse");
 
@@ -79,15 +87,23 @@ export const getCart = async (token) => {
   }
   return userResponse.json();
 };
-
 export const removeFromCart = async (token, productId) => {
-  const userResponse = await fetch(`${BaseUrl}/cart/${productId}`, {
-    method: "DELETE",
-    headers: { Authorization: "Bearer " + token },
-  });
-  console.log(token, "toekn");
-  if (!userResponse.ok) {
-    throw new Error("deleting product in cart");
+  try {
+    const userResponse = await fetch(`${BaseUrl}/cart/${productId}`, {
+      method: "DELETE",
+      headers: {
+        Authorization: "Bearer " + token,
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (!userResponse.ok) {
+      const errorDetails = await userResponse.json();
+      throw new Error(`Deleting product from cart failed: ${errorDetails.message}`);
+    }
+    return userResponse.json();
+  } catch (error) {
+    console.error("Error removing from cart:", error);
+    throw error;
   }
-  return userResponse.json();
 };

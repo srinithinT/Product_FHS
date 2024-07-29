@@ -1,54 +1,61 @@
-import { useState } from "react";
-// import "../styles/LoginPage.css";
+import React, { useState } from "react";
+import "../styles/Login.css";
 import { login } from "../api/api";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+
 function LoginPage({ setToken }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
   const navigate = useNavigate();
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!email || !password) {
+      toast.error("Please fill in all fields");
+      return;
+    }
+
     try {
       const { token } = await login({ email, password });
-      console.log(token, "response from signup");
+      console.log(token, "response from login");
       setToken(token);
       navigate("/products");
     } catch (e) {
-      console.log(e, "error message in signup");
+      console.log(e, "error message in login");
+      toast.error("Invalid email or password");
       setError(e.message);
     }
   };
+  console.log(email, password, "credentials");
   return (
-    <div className="signupContainer">
-      <h2>Login</h2>
-      {error && <p>{error}</p>}
-      <form className="signupContainer" onSubmit={handleSubmit}>
+    <div className="loginContainer">
+      <h2 className="loginTitle">Login</h2>
+      {error && <p className="errorMessage">{error}</p>}
+      <form className="loginForm" onSubmit={handleSubmit}>
         <div className="label-input">
-          <label>Email</label>
+          <label className="inputLabel">Email</label>
           <input
             type="text"
             placeholder="eg: abc@gmail.com"
-            required
-            className="form-input"
+            className="formInput"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
         </div>
         <div className="label-input">
-          <label>Email</label>
+          <label className="inputLabel">Password</label>
           <input
-            type="text"
+            type="password"
             placeholder="password"
-            required
-            className="form-input"
+            className="formInput"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
         </div>
-
-        <button type="submit" className="submit-button">
+        <button type="submit" className="submitButton">
           Login
         </button>
       </form>

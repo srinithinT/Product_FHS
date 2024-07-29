@@ -1,31 +1,134 @@
 .product-container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 1em;
-  text-align: center;
+  padding: 20px;
 }
-.product-list {
-  list-style-type: none;
-  padding: 0;
+
+.add-product-button {
+  margin-bottom: 20px;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
 }
-.product-item {
-  border: 2px solid black;
-  border-radius: 4px;
-  padding: 1em;
-  text-align: left;
-  display: flex;
-  gap: 5em;
-  margin: 5px;
+
+.add-product-button:hover {
+  background-color: #0056b3;
 }
-.form-input {
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
   width: 100%;
-  padding: 0.5em;
-  margin: 0.5em 0;
-  background-color: white;
-  border-radius: 4px;
-  color: black;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-.error {
+
+.modal-content {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  width: 90%;
+  max-width: 500px;
+}
+
+.form-input {
+  margin-bottom: 5px;
+}
+
+.form-input label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.form-input input {
+  background: white;
+  padding: 10px;
+  color: black;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+button[type="submit"] {
+  background-color: #007bff;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button[type="submit"]:hover {
+  background-color: #0056b3;
+}
+
+button[type="button"] {
+  background-color: #dc3545;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+button[type="button"]:hover {
+  background-color: #c82333;
+}
+
+.error-message {
   color: red;
-  font-size: 0.7em;
+  margin-bottom: 10px;
+}
+
+.product-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  list-style-type: none;
+}
+
+.product-item {
+  background: #f4f4f4;
+  padding: 20px;
+  border-radius: 10px;
+  width: calc(20% - 20px);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.product-image img {
+  max-width: 100%;
+  border-radius: 5px;
+}
+
+.product-details {
+  padding-top: 10px;
+}
+
+.product-details h3 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.product-details p {
+  margin: 5px 0;
+}
+
+.product-details button {
+  background-color: #007bff;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.product-details button:hover {
+  background-color: #0056b3;
 }

@@ -1,25 +1,89 @@
+body {
+  font-family: "Roboto", sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
 .signup-container {
-  text-align: center;
-  margin: 0 auto;
-  padding: 1em;
-}
-.signupContainer {
   max-width: 400px;
+  margin: 50px auto;
+  padding: 20px;
+  background-color: #f4f4f4;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.signup-title {
   text-align: center;
-  padding: 1em;
-  margin: 0 auto;
+  margin-bottom: 20px;
+  font-size: 24px;
+  color: #333;
 }
-.form-input {
-  width: 100%;
-  padding: 0.5em;
-  margin: 0.5em 0;
-  background-color: white;
-  border-radius: 4px;
-  color: black;
+
+.error-message {
+  color: red;
+  text-align: center;
+  margin-bottom: 10px;
 }
+
+.signup-form {
+  display: flex;
+  flex-direction: column;
+}
+
 .label-input {
-  text-align: left;
+  margin-bottom: 15px;
+}
+
+.input-label {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 16px;
+  color: #555;
+}
+
+.form-input {
+  width: 95%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
   color: black;
-  font-size: larger;
-  font-weight: 600;
+  background-color: white;
+}
+
+.submit-button {
+  width: 100%;
+  padding: 10px;
+  background-color: black;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.submit-button:hover {
+  background-color: #1d1d1d;
+}
+
+@media (max-width: 480px) {
+  .signup-container {
+    margin: 20px;
+    padding: 15px;
+  }
+
+  .signup-title {
+    font-size: 20px;
+  }
+
+  .form-input {
+    padding: 8px;
+    font-size: 12px;
+  }
+
+  .submit-button {
+    padding: 8px;
+    font-size: 14px;
+  }
 }
