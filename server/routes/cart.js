@@ -9,11 +9,13 @@ router.post("/cart", authMiddleware, async function (req, res) {
   const { productId, quantity } = req.body;
   try {
     const product = await Product.findById(productId);
+    if (!product) {
+      return res.status(404).json({ message: "Product not found" });
+    }
     let cart = await Cart.findOne({ userId: req.user._id });
+    console.log(cart, "cart from backedn");
     if (cart) {
-      const productIndex = cart.product.findIndex((p) => {
-        p.productId.toString() == productId;
-      });
+      const productIndex = cart.product.findIndex((p) => p._id.toString() === productId);
       if (productIndex > -1) {
         let productItem = cart.product[productIndex];
         productItem.quantity += quantity;
@@ -21,7 +23,7 @@ router.post("/cart", authMiddleware, async function (req, res) {
       } else {
         cart.product.push({ productId, quantity });
       }
-      cart = await cart.save;
+      cart = await cart.save();
     } else {
       const newCart = await Cart.create({
         userId: req.user._id,
@@ -29,11 +31,42 @@ router.post("/cart", authMiddleware, async function (req, res) {
       });
       cart = newCart;
     }
-    console.log(typeof quantity, typeof product.quantity, product.quantity, quantity, "fe");
     product.quantity -= quantity;
     await product.save();
+    res.status(200).json(cart);
   } catch (e) {
-    res.status(401).json({ message: "product creation failed" + e });
+    console.error("Failed to add to cart:", e);
+    res.status(500).json({ message: "Failed to add product to cart" });
+  }
+});
+
+router.delete("/cart/:productId", authMiddleware, async (req, res) => {
+  const { productId } = req.params;
+
+  try {
+    let cart = await Cart.findOne({ userId: req.user._id });
+
+    if (!cart) {
+      return res.status(404).json({ message: "Cart not found" });
+    }
+
+    const productIndex = cart.product.findIndex((p) => p.productId.toString() == productId);
+    console.log(productIndex, "productIndex");
+    if (productIndex > -1) {
+      cart.product.splice(productIndex, 1);
+      await cart.save();
+
+      const product = await Product.findById(productId);
+      if (product) {
+        product.quantity += productQuantity;
+        await product.save();
+      }
+      res.json(cart);
+    } else {
+      res.status(404).json({ message: "Product not found in cart" });
+    }
+  } catch (error) {
+    res.status(500).json({ message: "Server error" });
   }
 });
 
